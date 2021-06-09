@@ -56,6 +56,7 @@ class ManipuleShodan(object):
                     user_data['LINK_PROFILE'] = conf_v['LINK_PROFILE']
                 return json.dumps(user_data)
             except Exception as msg:
+                self.save_logs(msg, "errors", "Error exception run_variables")
                 return json.dumps({ "error": msg})
 
             finally:
@@ -90,7 +91,7 @@ class ManipuleShodan(object):
                             return json.dumps({"error": MessagesLogs().error_update_file_config_email})
 
                     except Exception as msg:
-                        self.save_logs(msg, "errors", "Error exception")
+                        self.save_logs(msg, "errors", "Error exception update_file_config")
                         return json.dumps({"error": MessagesLogs().error_update_file_config})
 
                     finally:
@@ -114,6 +115,7 @@ class ManipuleShodan(object):
                     logs_file.close()
         except Exception as msg:
             self.save_logs(f"{MessagesLogs().get_log_error} {type_log}.log", "errors", "Error get_logs")
+            self.save_logs(msg, "errors", "Error exception get_logs")
             return json.dumps({"error": f"{MessagesLogs().get_log_error} {type_log}.log"})
 
     # Retornar todas as informações de crédito na conta do Shodan...
@@ -130,16 +132,20 @@ class ManipuleShodan(object):
                 shodanOBJ = shodan.Shodan(self.API_KEY)
                 datas_response = shodanOBJ.search(search)
                 if datas_response["total"] == 0:
+                    self.save_logs(MessagesLogs().search_error_empty, "errors", "Search error empty")
                     return {"empty": MessagesLogs().search_error_empty}
                 else:
+                    self.save_logs(MessagesLogs().success_update_file_config, "success", "Success ")
                     return datas_response
 
             except Exception as msg:
-                self.save_logs(msg, "errors", "Search error")
+                self.save_logs(msg, "errors", "Error exception")
                 return {"error": MessagesLogs().search_error}
         elif search == "" or len(search) == 0:
+            self.save_logs(MessagesLogs().search_error_sintax_two, "errors", "Search error sintax two")
             return {"error": MessagesLogs().search_error_sintax_two}
         else:
+            self.save_logs(MessagesLogs().search_error_sintax_one, "errors", "Search error sintax one")
             return {"error": MessagesLogs().search_error_sintax_one}
 
     # Realiza uma busca e um ip determinado, retornando informações inportantes sobre o host.
@@ -191,4 +197,4 @@ class ManipuleShodan(object):
 
 if __name__=="__main__":
     test = ManipuleShodan()
-    print(test.get_info_ip("191.37.38.1"))
+    test.get_info_ip("191.37.89.1")

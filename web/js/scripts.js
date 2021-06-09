@@ -186,8 +186,7 @@ $(window).ready(function () {
 function templateCardCdir(datas) {
     return `<div class="col">
               <div class="card shadow-sm">
-                <div class="card-body">
-    
+                <div class="card-body">    
                   
                   <div>                    
                     <div class="d-flex justify-content-between align-items-center">
@@ -269,7 +268,6 @@ function templateGetIp(datas){
             <div class="card shadow-sm">
               <div class="card-body">
 
-
                 <div>
                   <div class="d-flex justify-content-between align-items-center">
                       <div class="btn-group"><h4>${datas.ip_str}</h4></div>
@@ -279,36 +277,67 @@ function templateGetIp(datas){
                 <div><span style="font-weight: bold">Organização: </span><span>${datas.org}</span></div>
                 <hr/>
                 <div><span style="font-weight: bold">Nome do host: </span><span>
-                    ${(datas.hostnames === "Nulo")? "Não encontrado ou não existe" : datas.hostnames.map((data, index) => " <span>"+data+"</span>")}
+                    ${(datas.hostnames === "Nulo")? "Não identificado ou não existe" : datas.hostnames.map((data, index) => " <span>"+data+"</span>")}
                 </span></div>
                 <div><span style="font-weight: bold">Domínio: </span><span>
-                    ${(datas.domains === "Nulo")? "Não encontrado ou não existe" : datas.domains.map((data, index) => " <span>"+data+"</span>")}
+                    ${(datas.domains === "Nulo")? "Não identificado ou não existe" : datas.domains.map((data, index) => " <span>"+data+"</span>")}
                 </span></div>
 
-                <div><span style="font-weight: bold">Portas expostas: </span><span>
-                    ${(datas.ports === "Nulo")? "Não encontrado ou não existe" : datas.ports.map((data, index) => " <span>"+data+"</span>")}
+                <div><span style="font-weight: bold">Portas abertas: </span><span>
+                    ${(datas.ports === "Nulo")? "Não identificado ou não existe" : datas.ports.map((data, index) => " <span>"+data+"</span>")}
                 </span></div>
                 <hr />
                 <div><span style="font-weight: bold">Cidade: </span><a href=${datas.location_map} target="_blank" style="color: blue;text-decoration: none;">${datas.city} </a><span style="font-weight: bold; margin-left: 5px;">País: </span><span>${datas.country_name}</span></div>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group"></div>
-                  <small><span style="font-weight: bold">ASN: </span><span style="">${datas.asn}</span></small> // Parei aqui
+                  <small><span style="font-weight: bold">ASN: </span><span style="">${datas.asn}</span></small>
                 </div>
 
               </div>
              </div>
             </div>
+           `
+}
 
-           <div class="col">
+function templateGetIpInfoPorts(datas) {
+    return `<div class="col">
               <div class="card shadow-sm">
-                <div class="card-body">${datas.data_array.map((data, index) => (data.info)? "<div>"+data.info+"</div>" : "")}
+                <div class="card-body">
+                    
+                  <div>                    
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group"><h4>${datas.product}</h4></div>                        
+                        <span style="font-weight: bold"><span>Transporte: </span><span>${(!datas.transport || datas.transport === "Nulo")? "Não identificado ou não existe" : datas.transport}</span></span>
+                        <span style="font-weight: bold"><h5>${(!datas.port || datas.port === "Nulo")? "Não identificado ou não existe" : datas.port}</h5></span>
+                    </div>                    
+                  </div>
+                  <div><span style="font-weight: bold">Organização: </span><span>${datas.org}</span></div>
+                  <hr/>
+                  <div><span style="font-weight: bold">IP: </span><span>
+                    ${
+                        (datas.data.split(" ").filter(str => { return str.includes("HTTP") }).length === 0)
+                            ? datas.ip_str 
+                            : (datas.data.split(" ").filter(str => { return str.includes("OpenSSL") }).length === 0) 
+                                ? "<a style='color: blue;text-decoration: none' href='http://"+datas.ip_str+":"+datas.port+"' target='_blank'>"+datas.ip_str+"</a>"
+                                : "<a style='color: blue;text-decoration: none' href='https://"+datas.ip_str+":"+datas.port+"' target='_blank'>"+datas.ip_str+"</a>"
+                    }
+                  </a></div>
+                  <div><span style="font-weight: bold">Servidor: </span><span>${(!datas.server || datas.server === "Nulo")? "Não identificado ou não existe" : datas.server}</span></div>
+                  <hr />
+                  <div>${datas.data.toString()}</div>
+                  <hr />
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group"></div>
+                    <small><span style="font-weight: bold">ASN: </span><span style="">${datas.asn}</span></small>
+                  </div>
+                 
                 </div>
               </div>
             </div>`
 }
 
 $("#action-search-ip").click(() => {
-    document.getElementById("results_ip_content").innerHTML = "" // Limpa o campo de resultados...
+    document.getElementById("results_ip_content").innerHTML = "" // Limpa o campo de resultados... data.filter(str => { return str.includes("HTTP/1.1")})
     let search_ip = document.getElementById("search-ip-api"); // Seleciona o elemento do input do search para recuperar os valores...
     document.getElementById("loader-progress-ip").children[0].style.display = "block"; // Exibe o elemento de progress...
 
@@ -331,6 +360,18 @@ $("#action-search-ip").click(() => {
             "location_map": (!mat.latitude || !mat.longitude || mat.latitude === "" || mat.latitude.length === 0 || mat.longitude === "" || mat.longitude.length === 0)? "" : `https://www.google.com.br/maps/@${mat.latitude},${mat.longitude}`,
             "data_array": (!mat.data || mat.data.length === 0 || mat.data === "")? "Nulo" : mat.data
         }));
+
+        mat.data.forEach((data, index) => {
+            $("#results_ip_content").append(templateGetIpInfoPorts({
+                "asn": (!data.asn || data.asn === "")? "Nulo" : data.asn,
+                "product": (!data.product || mat.product === "")? "Não identificado" : data.product,
+                "data": (!data.data || data.data === "")? "" : data.data,
+                "ip_str": (!data.ip_str || data.ip_str === "")? "Nulo" : mat.ip_str,
+                "port": (!data.port || data.port === "")? "Nulo" : data.port,
+                "transport": (!data.transport || data.transport === "")? "Nulo" : data.transport,
+                "server": (!data.http || !data.http.server || data.http.server === "")? "Nulo" : data.http.server,
+            }));
+        })
 
         document.getElementById("loader-progress-ip").children[0].style.display = "none"; // Esconte o elemento de progresso...
     });
