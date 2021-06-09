@@ -7,10 +7,12 @@ eel.init('web')
 def get_api_information():
     return ManipuleShodan().get_api_information()
 
+# Rota destinada a retornar um array em json de informações baseadas em uma rede...
 @eel.expose
 def get_net(rede):
     return ManipuleShodan().get_net(f"net:{rede}")
 
+# Rota destinada a realizar uma busca mais avançada em um endereço ip.
 @eel.expose
 def get_info_ip(ip):
     return ManipuleShodan().get_info_ip(f"{ip}")
@@ -51,7 +53,7 @@ def get_logs(type_log):
     return ManipuleShodan().get_logs(type_log)
 
 try:
-    eel.start('index.html', size=(950,800), port=0)   #python will select free ephemeral ports.
+    eel.start('index.html', port=0)   #python will select free ephemeral ports.
 except (SystemExit, MemoryError, KeyboardInterrupt):
     print ("Program Exit, Save Logs if Needed")
 

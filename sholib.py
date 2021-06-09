@@ -54,13 +54,13 @@ class ManipuleShodan(object):
                     user_data['SHODAN_API_LINK'] = conf_v['SHODAN_API_LINK']
                     user_data['SHODAN'] = conf_v['SHODAN']
                     user_data['LINK_PROFILE'] = conf_v['LINK_PROFILE']
+                return json.dumps(user_data)
             except Exception as msg:
                 return json.dumps({ "error": msg})
 
             finally:
                 config.close()
 
-        return json.dumps(user_data)
 
     # Atualização dos dados de configuração...
     def update_file_config(self, data_settings):
@@ -104,20 +104,17 @@ class ManipuleShodan(object):
                 try:
                     for log in logs_file.readlines():
                         data_logs.append(log.strip())
-                    self.save_logs(MessagesLogs().get_log_success, "success", "Sucesso ao recuperar os logs.")
-                    return json.dumps({
-                        "logs": data_logs
-                    })
+                    return json.dumps({"logs": data_logs})
 
                 except Exception as msg:
-                    self.save_logs(f"{MessagesLogs().get_log_success} {type_log}.log", "success", "Sucesso ao recuperar os logs.")
-                    return json.dumps({"error": MessagesLogs().get_log_error})
+                    self.save_logs(f"{MessagesLogs().get_log_error} {type_log}.log", "errors", "Error get_logs")
+                    return json.dumps({"error": f"{MessagesLogs().get_log_error} {type_log}.log"})
 
                 finally:
                     logs_file.close()
         except Exception as msg:
-            self.save_logs(f"{MessagesLogs().get_log_success} {type_log}.log", "success", "Sucesso ao recuperar os logs.")
-            return json.dumps({"error": MessagesLogs().get_log_error})
+            self.save_logs(f"{MessagesLogs().get_log_error} {type_log}.log", "errors", "Error get_logs")
+            return json.dumps({"error": f"{MessagesLogs().get_log_error} {type_log}.log"})
 
     # Retornar todas as informações de crédito na conta do Shodan...
     def get_api_information(self):
@@ -131,12 +128,19 @@ class ManipuleShodan(object):
             try:
                 self.run_variables()
                 shodanOBJ = shodan.Shodan(self.API_KEY)
-                return shodanOBJ.search(search)
+                datas_response = shodanOBJ.search(search)
+                if datas_response["total"] == 0:
+                    return {"empty": MessagesLogs().search_error_empty}
+                else:
+                    return datas_response
+
             except Exception as msg:
                 self.save_logs(msg, "errors", "Search error")
                 return {"error": MessagesLogs().search_error}
+        elif search == "" or len(search) == 0:
+            return {"error": MessagesLogs().search_error_sintax_two}
         else:
-            return { "error": MessagesLogs().search_error }
+            return {"error": MessagesLogs().search_error_sintax_one}
 
     # Realiza uma busca e um ip determinado, retornando informações inportantes sobre o host.
     def get_info_ip(self, ip):
@@ -187,4 +191,4 @@ class ManipuleShodan(object):
 
 if __name__=="__main__":
     test = ManipuleShodan()
-    print(test.get_logs("success"))
+    print(test.get_info_ip("191.37.38.1"))
