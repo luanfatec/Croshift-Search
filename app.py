@@ -56,4 +56,3 @@ try:
     eel.start('index.html', port=0)   #python will select free ephemeral ports.
 except (SystemExit, MemoryError, KeyboardInterrupt):
     print ("Program Exit, Save Logs if Needed")
-

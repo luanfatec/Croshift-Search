@@ -337,41 +337,45 @@ function templateGetIpInfoPorts(datas) {
 }
 
 $("#action-search-ip").click(() => {
-    document.getElementById("results_ip_content").innerHTML = "" // Limpa o campo de resultados... data.filter(str => { return str.includes("HTTP/1.1")})
+    document.getElementById("results_ip_content").innerHTML = "" // Limpa o campo de resultados... 78.39.46.1
     let search_ip = document.getElementById("search-ip-api"); // Seleciona o elemento do input do search para recuperar os valores...
     document.getElementById("loader-progress-ip").children[0].style.display = "block"; // Exibe o elemento de progress...
 
     // Buscando pelo ip...
     eel.get_info_ip(search_ip.value)(response => {
-        let mat = JSON.parse(response)
-        console.log(mat)
 
-        $("#results_ip_content").append(templateGetIp({
-            "asn": (!mat.asn || mat.asn === "")? "Nulo" : mat.asn,
-            "org": (!mat.org || mat.org === "")? "Nulo" : mat.org,
-            "product": (!mat.product || mat.product === "")? "Não identificado" : mat.product,
-            "ip_str": (!mat.ip_str || mat.ip_str === "")? "Nulo" : mat.ip_str,
-            "hostnames": (mat.hostnames.length === 0 || !mat.hostnames || mat.hostnames === "")? "Nulo" : mat.hostnames,
-            "country_code": (!mat.country_code || mat.country_code === "")? "Nulo" : mat.country_code,
-            "city": (!mat.city || mat.city === "")? "Nulo" : mat.city,
-            "country_name": (!mat.country_name || mat.country_name === "")? "Nulo" : mat.country_name,
-            "domains": (!mat.domains || mat.domains === "" || mat.domains.length === 0)? "Nulo" : mat.domains,
-            "ports": (!mat.ports || mat.ports === "" || mat.ports.length === 0)? "Nulo" : mat.ports,
-            "location_map": (!mat.latitude || !mat.longitude || mat.latitude === "" || mat.latitude.length === 0 || mat.longitude === "" || mat.longitude.length === 0)? "" : `https://www.google.com.br/maps/@${mat.latitude},${mat.longitude}`,
-            "data_array": (!mat.data || mat.data.length === 0 || mat.data === "")? "Nulo" : mat.data
-        }));
 
-        mat.data.forEach((data, index) => {
-            $("#results_ip_content").append(templateGetIpInfoPorts({
-                "asn": (!data.asn || data.asn === "")? "Nulo" : data.asn,
-                "product": (!data.product || mat.product === "")? "Não identificado" : data.product,
-                "data": (!data.data || data.data === "")? "" : data.data,
-                "ip_str": (!data.ip_str || data.ip_str === "")? "Nulo" : mat.ip_str,
-                "port": (!data.port || data.port === "")? "Nulo" : data.port,
-                "transport": (!data.transport || data.transport === "")? "Nulo" : data.transport,
-                "server": (!data.http || !data.http.server || data.http.server === "")? "Nulo" : data.http.server,
+        if (response.error) {
+            $.notify(response.error, "error");
+        } else {
+            let mat = JSON.parse(response)
+            $("#results_ip_content").append(templateGetIp({
+                "asn": (!mat.asn || mat.asn === "")? "Nulo" : mat.asn,
+                "org": (!mat.org || mat.org === "")? "Nulo" : mat.org,
+                "product": (!mat.product || mat.product === "")? "Não identificado" : mat.product,
+                "ip_str": (!mat.ip_str || mat.ip_str === "")? "Nulo" : mat.ip_str,
+                "hostnames": (mat.hostnames.length === 0 || !mat.hostnames || mat.hostnames === "")? "Nulo" : mat.hostnames,
+                "country_code": (!mat.country_code || mat.country_code === "")? "Nulo" : mat.country_code,
+                "city": (!mat.city || mat.city === "")? "Nulo" : mat.city,
+                "country_name": (!mat.country_name || mat.country_name === "")? "Nulo" : mat.country_name,
+                "domains": (!mat.domains || mat.domains === "" || mat.domains.length === 0)? "Nulo" : mat.domains,
+                "ports": (!mat.ports || mat.ports === "" || mat.ports.length === 0)? "Nulo" : mat.ports,
+                "location_map": (!mat.latitude || !mat.longitude || mat.latitude === "" || mat.latitude.length === 0 || mat.longitude === "" || mat.longitude.length === 0)? "" : `https://www.google.com.br/maps/@${mat.latitude},${mat.longitude}`,
+                "data_array": (!mat.data || mat.data.length === 0 || mat.data === "")? "Nulo" : mat.data
             }));
-        })
+
+            mat.data.forEach((data, index) => {
+                $("#results_ip_content").append(templateGetIpInfoPorts({
+                    "asn": (!data.asn || data.asn === "")? "Nulo" : data.asn,
+                    "product": (!data.product || mat.product === "")? "Não identificado" : data.product,
+                    "data": (!data.data || data.data === "")? "" : data.data,
+                    "ip_str": (!data.ip_str || data.ip_str === "")? "Nulo" : mat.ip_str,
+                    "port": (!data.port || data.port === "")? "Nulo" : data.port,
+                    "transport": (!data.transport || data.transport === "")? "Nulo" : data.transport,
+                    "server": (!data.http || !data.http.server || data.http.server === "")? "Nulo" : data.http.server,
+                }));
+            });
+        }
 
         document.getElementById("loader-progress-ip").children[0].style.display = "none"; // Esconte o elemento de progresso...
     });

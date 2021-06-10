@@ -153,9 +153,13 @@ class ManipuleShodan(object):
         try:
             self.run_variables()
             info = self.agent.get(url=f"{self.SHODAN_API_LINK}/shodan/host/{ip}?key={self.API_KEY}").text
+            if "error" in json.loads(info):
+                self.save_logs(MessagesLogs().search_error_sintax_two, "errors", "Search get ip error")
+                return { "error": MessagesLogs().search_error_get_ip }
             return info
         except Exception as msg:
-            return { "error": msg }
+            self.save_logs(msg, "errors", "Error exception get_ip")
+            return { "error": MessagesLogs().search_error_excep_get_ip }
 
     # Retornar uma lista de protocolo com informações sobre..
     def get_info_protocols(self):
@@ -197,4 +201,4 @@ class ManipuleShodan(object):
 
 if __name__=="__main__":
     test = ManipuleShodan()
-    test.get_info_ip("191.37.89.1")
+    print(test.get_info_ip("191.37.38.2"))
