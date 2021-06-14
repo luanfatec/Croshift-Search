@@ -685,6 +685,7 @@ function templateReport(child_result) {
 
 function report_search(id, title) {
     let doc = document.getElementById(id).children[0].children[0].children[0].children[0].innerHTML;
+    console.log(doc)
 
     let display = window.open(document.location.href, 'mywindow', 'status=1,width=1200,height=900')
     display.document.write(templateReport({

@@ -130,7 +130,7 @@
 
   <main>
     
-    <section id="home" class="container" style="display: none">
+    <section id="home" class="container" style="display: block">
 
       <div class="px-4 pt-5 my-5 text-center border-bottom">
           <h1 class="display-4 fw-bold" id="title-home-page">Croshift Search</h1>
@@ -296,7 +296,7 @@
         </div>
     </section>
 
-    <section id="search-cdir" class="container" style="display: block">
+    <section id="search-cdir" class="container" style="display: none">
         <div class="px-3 py-2 border-bottom mb-3">
 
           <div class="container d-flex flex-wrap justify-content-center">
@@ -351,7 +351,7 @@
               <div class="input-group mb-3">
                 <input id="search-ip-api" type="search" class="form-control" placeholder="Ex: 192.168.4.1"/>
                 <button class="input-group-text" id="action-search-ip">Buscar</button>
-                <button class="input-group-text" style="margin-left: 5px; border-radius: 5px" onclick="report_search('results_ip_content')">Relatório</button>
+                <button class="input-group-text" style="margin-left: 5px; border-radius: 5px" onclick="report_search('results-search-api-ip', 'Buscar por IP')">Relatório</button>
               </div>
             </div>
 
@@ -388,7 +388,7 @@
               <div class="input-group mb-3">
                 <input id="search-reverse_dns-api" type="search" class="form-control" placeholder="Ex: www.exemplo.com"/>
                 <button class="input-group-text" id="action-search-reverse_dns">Buscar</button>
-                <button class="input-group-text" style="margin-left: 5px; border-radius: 5px" onclick="report_search('results_reverse_dns_content')">Relatório</button>
+                <button class="input-group-text" style="margin-left: 5px; border-radius: 5px" onclick="report_search('results-search-api-reverse_dns', 'Rerverter um DNS')">Relatório</button>
               </div>
             </div>
 
@@ -426,7 +426,7 @@
               <div class="input-group mb-3">
                 <input id="search-resolve_dns-api" type="search" class="form-control" placeholder="Ex: dns.google"/>
                 <button class="input-group-text" id="action-search-resolve_dns">Buscar</button>
-                <button class="input-group-text" style="margin-left: 5px; border-radius: 5px" onclick="report_search('results_resolve_dns_content')">Relatório</button>
+                <button class="input-group-text" style="margin-left: 5px; border-radius: 5px" onclick="report_search('results-search-api-resolve_dns', 'Resolver um DNS')">Relatório</button>
               </div>
             </div>
 
@@ -464,7 +464,7 @@
               <div class="input-group mb-3">
                 <input id="search-get_subdomais-api" type="search" class="form-control" placeholder="Ex: google.com"/>
                 <button class="input-group-text" id="action-search-get_subdomais">Buscar</button>
-                <button class="input-group-text" style="margin-left: 5px; border-radius: 5px" onclick="report_search('results_get_subdomais_content')">Relatório</button>
+                <button class="input-group-text" style="margin-left: 5px; border-radius: 5px" onclick="report_search('results-search-api-get_subdomais', 'Buscar Subdomínio')">Relatório</button>
               </div>
             </div>
 
