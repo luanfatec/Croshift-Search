@@ -4,3 +4,18 @@ A Croshift Search é um software baseado em API, que tem como função realizar 
 ![Croshift Search](./web/images/bg-home.PNG)
 
 Croshift Search é um software desenvolvido em prol de um certificado do curso de Python da ITSafe(Cysource): https://cysource.com.br/cyber_full#python
+
+## Painel
+
+![Croshift Search](./web/images/bg-panel.PNG)
+
+## Configurações
+
+![Croshift Search](./web/images/bg-settings.PNG)
+
+## Buscas
+
+![Croshift Search](./web/images/bg-buscas.PNG)
+
+
+![Croshift Search](./web/images/bg-results.PNG)
