@@ -18,10 +18,6 @@ def get_info_ip(ip):
     return ManipuleShodan().get_info_ip(f"{ip}")
 
 @eel.expose
-def get_info_protocols():
-    return ManipuleShodan().get_info_protocols()
-
-@eel.expose
 def reverse_dns(apis):
     return ManipuleShodan().reverse_dns(f"{apis}")
 
@@ -51,6 +47,11 @@ def update_settings_user(data_config):
 @eel.expose
 def get_logs(type_log):
     return ManipuleShodan().get_logs(type_log)
+
+# Rota especifica para salvar os logs do lado cliente.
+@eel.expose
+def save_logs(message, file, type_error):
+    ManipuleShodan().save_logs(message, file, type_error)
 
 try:
     eel.start('index.html', port=0)   #python will select free ephemeral ports.

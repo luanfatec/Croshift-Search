@@ -13,3 +13,6 @@ class MessagesLogs(object):
         self.search_error_empty = "Não foi localizado nenhum resultado com o parâmetro da sua pesquisa."
         self.search_error_get_ip = "Não foi localizado nenhum resultado com o parâmetro informado, por favor, tente novamente."
         self.search_error_excep_get_ip = "Houve um erro no processamento da aplicação, por favor, verifique os logs ou consulte os no arquivo de log."
+        self.search_error_excep_reverse_dns = "Houve um erro no processamento da aplicação, por favor, verifique os logs ou consulte os no arquivo de log."
+        self.search_error_resolv = "Houve um erro ao tentar resolver o domínio infomado, por favor, verifique o parâmetro informado e tente novamente."
+        self.search_error_get_subdomains = "Houve um erro ao tentar buscar subdominios com o dominio desejado."

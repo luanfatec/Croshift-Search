@@ -161,15 +161,6 @@ class ManipuleShodan(object):
             self.save_logs(msg, "errors", "Error exception get_ip")
             return { "error": MessagesLogs().search_error_excep_get_ip }
 
-    # Retornar uma lista de protocolo com informações sobre..
-    def get_info_protocols(self):
-        try:
-            self.run_variables()
-            info = self.agent.get(f"{self.SHODAN_API_LINK}/shodan/protocols?key={self.API_KEY}").text
-            return info
-        except Exception as msg:
-            return { "error": msg }
-
     # Realiza uma reversão de ip para DNS.
     def reverse_dns(self, apis):
         try:
@@ -177,7 +168,8 @@ class ManipuleShodan(object):
             info = self.agent.get(f"{self.SHODAN_API_LINK}/dns/reverse?ips={apis}&key={self.API_KEY}").text
             return info
         except Exception as msg:
-            return { "error": msg }
+            self.save_logs(msg, "errors", "Error exception reverse_dns")
+            return { "error": MessagesLogs().search_error_excep_reverse_dns }
 
     # Realiza uma conversão de host para ip.
     def resolve_dns(self, hostnames):
@@ -186,7 +178,8 @@ class ManipuleShodan(object):
             info = self.agent.get(f"{self.SHODAN_API_LINK}/dns/resolve?hostnames={hostnames}&key={self.API_KEY}").text
             return info
         except Exception as msg:
-            return { "error": msg }
+            self.save_logs(msg, "errors", "Error exception resolve_dns")
+            return { "error": MessagesLogs().search_error_resolv }
 
     # Retorna uma lista de subdomios de determinado hostname.
     def get_subdomais(self, hostname):
@@ -195,10 +188,5 @@ class ManipuleShodan(object):
             info = self.agent.get(f"{self.SHODAN_API_LINK}/dns/domain/{hostname}?key={self.API_KEY}").text
             return info
         except Exception as msg:
-            return { "error": msg }
-
-
-
-if __name__=="__main__":
-    test = ManipuleShodan()
-    print(test.get_info_ip("191.37.38.2"))
+            self.save_logs(msg, "errors", "Error exception get_subdomais")
+            return { "error": MessagesLogs().search_error_get_subdomains }

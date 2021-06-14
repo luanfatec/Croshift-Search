@@ -40,3 +40,38 @@
 [10/06/2021 10:11] | Search get ip error: O campo de pesquisa está vazio, por favor, insira um parâmetro para pesquisa e tente novamente.
 [10/06/2021 10:11] | Search error empty: Não foi localizado nenhum resultado com o parâmetro da sua pesquisa.
 [10/06/2021 10:11] | Search error empty: Não foi localizado nenhum resultado com o parâmetro da sua pesquisa.
+[10/06/2021 23:13] | Search get ip error: O campo de pesquisa está vazio, por favor, insira um parâmetro para pesquisa e tente novamente.
+[10/06/2021 23:13] | Search get ip error: O campo de pesquisa está vazio, por favor, insira um parâmetro para pesquisa e tente novamente.
+[11/06/2021 10:13] | Error Exception reverse_dns Client: 
+[11/06/2021 10:14] | Error Exception reverse_dns Client: 
+[11/06/2021 10:15] | Error Exception reverse_dns Client: ee is not defined
+[11/06/2021 10:15] | Error Exception reverse_dns Client: ee is not defined
+[11/06/2021 10:15] | Error Exception reverse_dns Client: ee is not defined
+[11/06/2021 10:15] | Error Exception reverse_dns Client: ee is not defined
+[11/06/2021 10:15] | Error Exception reverse_dns Client: ee is not defined
+[11/06/2021 10:15] | Error Exception reverse_dns Client: ee is not defined
+[11/06/2021 10:15] | Error Exception reverse_dns Client: ee is not defined
+[11/06/2021 10:15] | Error Exception reverse_dns Client: ee is not defined
+[11/06/2021 10:15] | Error Exception reverse_dns Client: ee is not defined
+[11/06/2021 10:15] | Error Exception reverse_dns Client: ee is not defined
+[11/06/2021 10:15] | Error Exception reverse_dns Client: ee is not defined
+[11/06/2021 10:19] | Error Exception reverse_dns Client: ee is not defined
+[11/06/2021 10:19] | Error Exception reverse_dns Client: ee is not defined
+[11/06/2021 10:28] | Error exception get_ip: Expecting value: line 1 column 1 (char 0)
+[11/06/2021 10:28] | Error exception get_ip: Expecting value: line 1 column 1 (char 0)
+[11/06/2021 10:28] | Search error sintax one: Houve um erro na sintax do arqumento para pesquisa, por favor, verifique o texto e tente novamente.
+[11/06/2021 10:46] | Error exception reverse_dns: string indices must be integers
+[11/06/2021 11:00] | Error Exception update_settings_user Client: eel.update_settings_usefr is not a function
+[11/06/2021 12:56] | Search error sintax one: Houve um erro na sintax do arqumento para pesquisa, por favor, verifique o texto e tente novamente.
+[11/06/2021 13:02] | Error Exception get_subdomais Client: search_subdomais.notify is not a function
+[11/06/2021 13:02] | Error Exception get_subdomais Client: search_subdomais.notify is not a function
+[11/06/2021 13:03] | Error Exception get_subdomais Client: search_subdomais.notify is not a function
+[12/06/2021 08:50] | Search error empty: Não foi localizado nenhum resultado com o parâmetro da sua pesquisa.
+[12/06/2021 08:53] | Search error empty: Não foi localizado nenhum resultado com o parâmetro da sua pesquisa.
+[12/06/2021 08:56] | Search get ip error: O campo de pesquisa está vazio, por favor, insira um parâmetro para pesquisa e tente novamente.
+[12/06/2021 08:57] | Search get ip error: O campo de pesquisa está vazio, por favor, insira um parâmetro para pesquisa e tente novamente.
+[12/06/2021 08:57] | Search get ip error: O campo de pesquisa está vazio, por favor, insira um parâmetro para pesquisa e tente novamente.
+[12/06/2021 08:57] | Search get ip error: O campo de pesquisa está vazio, por favor, insira um parâmetro para pesquisa e tente novamente.
+[12/06/2021 08:57] | Search get ip error: O campo de pesquisa está vazio, por favor, insira um parâmetro para pesquisa e tente novamente.
+[12/06/2021 09:17] | Error exception get_ip: Expecting value: line 1 column 1 (char 0)
+[12/06/2021 09:23] | Search error empty: Não foi localizado nenhum resultado com o parâmetro da sua pesquisa.
